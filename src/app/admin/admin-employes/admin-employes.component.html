@@ -1,0 +1,75 @@
+<div class="rounded shadow bg-white p-5">
+        <div class="row">
+            <div class="col-12 d-flex">
+                <h2 class="font-weight-light"><i class="fas fa-user"></i> Employés</h2>
+                 <button class="btn btn-primary ml-auto" type="button" data-toggle="modal" data-target="#employesFormModal"><i class="fas fa-plus"></i> Ajouter un nouvel employé</button>
+        </div>
+        </div>
+        <hr class="mt-1 mb-5 bg-dark">
+        <div *ngFor="let employe of employes ; let i = index" class="col-12 shadow-sm p-4 mb-3 bg-light">
+            <div class="row">
+                <div class="col-md-2">
+                    <img [src]="employe.photo" alt="Employe photo" *ngIf="employe.photo" style="width : 100px;">
+                    <h4 *ngIf="!employe.photo" class="font-weight-light">Pas de fichier </h4>
+                    </div>
+                <h3 class="font-weight-normal pl-3">{{ employe.nom }} {{employe.prenom}}</h3>
+                
+                
+                <div class="ml-auto">
+                        <div class="ml-auto">
+                                <button class="btn btn-primary my-3 mx-auto"(click)="onViewEmploye(i)">Plus de détails</button>
+        <button class="btn btn-primary m-1"(click)="onEditEmploye(employe,i)"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-danger m-1"(click)="onDeleteEmploye(employe)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+            
+        </div>
+            
+        </div>
+
+    
+    <div class="modal fade" id="employesFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="rounded shadow bg-white p-5">
+                    <h3 class="font-weight-light">Nouvel employé</h3>
+                    <hr class="mt-0 bg-dark">
+                    <form [formGroup]="employeForm" class="py-5" (ngSubmit)="onSaveEmploye()">
+                        <div class="form-group">
+                            <input type="text" formControlName="nom" id="nom" placeholder="Nom" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <input type="text" formControlName="prenom" id="prenom" placeholder="Prénom" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                    <input type="email" formControlName="mail" id="mail" placeholder="Adresse Email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                        <input type="tel" formControlName="phone" id="phone" placeholder="Numéro de Téléphone" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                            <textarea class="form-control" formControlName="adresse" id="adresse" placeholder="Adresse"></textarea>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group mb-0">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"> Ajouter un fichier</span>
+
+                                            </div>
+                                            <div class="custom-file">
+                                                <input type="file" id="photo" (change)="detectFile($event)" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+                                                text/plain, application/pdf, image/*" class ="custom-file-input"> 
+                                                <label for="photo" class="custom-fil-label">Choisir</label>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <small class="text-warning" *ngIf="photoUploading">Chargement...</small>
+                                        <small class="text-success" *ngIf="photoUploaded">Fichier chargé</small>
+                                        <button class="btn btn-primary float-right" type="submit" [disabled]="employeForm.invalid">Enregistrer</button>
+                                    </form>
+                                    
+                </div>
+            </div>
+        </div>
+    </div>

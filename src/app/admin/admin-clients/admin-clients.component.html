@@ -1,0 +1,57 @@
+<div class="rounded shadow bg-white p-5">
+    <div class="row">
+        <div class="col-12 d-flex">
+            <h2 class="font-weight-light"><i class="fas fa-user"></i> Client</h2>
+             <button class="btn btn-primary ml-auto" type="button" (click)="resetClientForm()" data-toggle="modal" data-target="#clientsFormModal"><i class="fas fa-plus"></i> Ajouter un client</button>
+    </div>
+    </div>
+    <hr class="mt-1 mb-5 bg-dark">
+    <div class="row">
+<div *ngFor="let client of clients; let i = index" class="col-12 shadow-sm p-4 mb-3 bg-light">
+    <div class="row">
+        <h3 class="font-weight-normal pl-3">{{ client.nom }}</h3>
+        
+        
+ <div class="ml-auto">
+         <div class="ml-auto">
+<button class="btn btn-primary  mx-auto"(click)="onViewClient(i)">Plus de détails</button>
+<button class="btn btn-primary m-1" (click)="onEditClient(client,i)"><i class="fas fa-edit"></i></button>
+<button class="btn btn-danger m-1" (click)="onDeleteClient(client)"><i class="fas fa-trash-alt"></i></button>
+        </div>
+    </div>
+    
+</div>
+    </div>
+</div>
+
+<div class="modal fade" id="clientsFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="rounded shadow bg-white p-5">
+                <h3 class="font-weight-light">Nouveau Client</h3>
+                <hr class="mt-0 bg-dark">
+                <form [formGroup]="clientForm" class="py-5" (ngSubmit)="onSaveClient()">
+                    <input type="text" formControlName="id" hidden>
+                    <div class="form-group">
+                        <input type="text" formControlName="nom" id="nom" placeholder="Nom" class="form-control">
+                    </div>
+                    <div class="form-group">
+                            <input type="text" formControlName="entreprise" id="entreprise" placeholder="Entreprise" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <input type="email" formControlName="mail" id="mail" placeholder="Adresse Email" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                    <input type="tel" formControlName="phone" id="phone" placeholder="Numéro de Téléphone" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                        <textarea class="form-control" formControlName="description" id="description" placeholder="Description"></textarea>
+                                        
+                                    </div>
+                                    <button class="btn btn-primary float-right" type="submit" [disabled]="clientForm.invalid">Enregistrer</button>
+                                </form>
+                                
+            </div>
+        </div>
+    </div>
+</div>
